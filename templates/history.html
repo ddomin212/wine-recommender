@@ -1,0 +1,25 @@
+{% extends "layout.html" %}{% block content %}
+<div class="container text-center" style="margin-top: 36px">
+  <h2>History</h2>
+</div>
+<div class="container" style="max-width: 768px">
+  <p style="text-align: center; border-style: none"></p>
+</div>
+<div class="container" style="max-width: 1168px">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr></tr>
+      </thead>
+      <tbody>
+        {% for query in queries %}
+        <tr>
+          <td>{{query.query}}</td>
+          <td>{{query.prediction}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

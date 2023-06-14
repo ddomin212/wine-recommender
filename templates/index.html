@@ -1,0 +1,77 @@
+{% extends "layout.html" %}{% block content %}
+<header class="masthead" style="background-image: url('{{ image_url }}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 mx-auto position-relative">
+        <div class="site-heading">
+          <h1>Your wine connosieur</h1>
+          <span class="subheading">powered by AI, thanks internet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container text-center">
+  <h1>Describe the taste...</h1>
+
+  <form method="POST" action="">
+    <div class="row d-flex justify-content-center">
+      <textarea
+        name="text"
+        style="
+          min-width: 360px;
+          height: 150px;
+          max-width: 600px;
+          margin-bottom: 16px;
+        "
+      ></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+  <div class="row justify-content-center">
+    <div
+      class="spinner"
+      id="spinner"
+      style="display: none; margin-top: 16px"
+    ></div>
+  </div>
+</div>
+<div class="container">
+  <h3 class="text-center" style="margin-top: 16px" id="data"></h3>
+</div>
+<script>
+  async function getDataFromServer(e) {
+    e.preventDefault();
+    // Display spinner while loading
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "block";
+    try {
+      // Make a request to the server
+      const response = await fetch(`${window.location.href}api`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: document.querySelector("textarea").value,
+        }),
+      });
+      const data = await response.json();
+
+      // Display the data to the user
+      const dataElement = document.getElementById("data");
+      dataElement.textContent = data?.prediction;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      // Hide the spinner after loading
+      spinner.style.display = "none";
+    }
+  }
+  console.log();
+  const form = document.querySelector("form");
+  form.addEventListener("submit", getDataFromServer);
+</script>
+{% endblock %}

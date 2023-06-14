@@ -1,0 +1,7 @@
+fbc.py
+/wine_env
+**/__pycache__
+Dockerfile
+.dockerignore
+.env
+```

@@ -1,0 +1,6 @@
+Flask==2.2.3
+pyrebase4
+gunicorn
+Flask-Session
+redis
+requests==2.19.1
